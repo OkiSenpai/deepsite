@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Haven - Official Merchandise Store</title>
+    <meta name="description" content="Shop authentic anime merchandise including figures, posters, clothing and accessories from Naruto, Dragon Ball, Hunter x Hunter and more.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Rubik:wght@300;400;500&display=swap');
+        
+        :root {
+            --primary: #ff4d89;
+            --secondary: #6a4cff;
+            --accent: #ffb800;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Rubik', sans-serif;
+            background-color: #f5f5fa;
+        }
+        
+        h1, h2, h3, h4, .logo {
+            font-family: 'Chakra Petch', sans-serif;
+        }
+        
+        .anime-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(106, 76, 255, 0.3);
+        }
+        
+        .anime-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(106, 76, 255, 0.4);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(26,26,46,0.9) 0%, rgba(106,76,255,0.7) 100%);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .cart-item-enter {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        
+        .cart-item-enter-active {
+            opacity: 1;
+            transform: translateX(0);
+            transition: all 300ms ease;
+        }
+        
+        .cart-item-exit {
+            opacity: 1;
+        }
+        
+        .cart-item-exit-active {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 300ms ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .series-filter.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .type-filter.active {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="#" class="logo text-2xl font-bold text-gray-800 flex items-center">
+                    <span class="text-3xl text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">Anime</span>
+                    <span class="text-3xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-400">Haven</span>
+                </a>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#" class="nav-link text-gray-700 hover:text-purple-600 font-medium">Home</a>
+                    <a href="#shop" class="nav-link text-gray-700 hover:text-purple-600 font-medium">Shop</a>
+                    <a href="#categories" class="nav-link text-gray-700 hover:text-purple-600 font-medium">Categories</a>
+                    <a href="#about" class="nav-link text-gray-700 hover:text-purple-600 font-medium">About</a>
+                    <a href="#contact" class="nav-link text-gray-700 hover:text-purple-600 font-medium">Contact</a>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <button id="cart-btn" class="text-gray-700 hover:text-purple-600 relative">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-pink-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </button>
+                </div>
+                <div class="hidden md:block">
+                    <a href="#login" class="text-gray-700 hover:text-purple-600 font-medium">Login</a>
+                    <span class="mx-2 text-gray-300">|</span>
+                    <a href="#register" class="text-gray-700 hover:text-purple-600 font-medium">Register</a>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-2">
+                <a href="#" class="block py-2 text-gray-700 hover:text-purple-600">Home</a>
+                <a href="#shop" class="block py-2 text-gray-700 hover:text-purple-600">Shop</a>
+                <a href="#categories" class="block py-2 text-gray-700 hover:text-purple-600">Categories</a>
+                <a href="#about" class="block py-2 text-gray-700 hover:text-purple-600">About</a>
+                <a href="#contact" class="block py-2 text-gray-700 hover:text-purple-600">Contact</a>
+                <div class="border-t pt-2">
+                    <a href="#login" class="block py-2 text-gray-700 hover:text-purple-600">Login</a>
+                    <a href="#register" class="block py-2 text-gray-700 hover:text-purple-600">Register</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-96 md:h-screen max-h-screen overflow-hidden">
+        <div class="absolute inset-0 hero-gradient z-10 flex items-center">
+            <div class="container mx-auto px-4 z-20 text-white">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4">Welcome to <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-400">Anime Haven</span></h1>
+                <p class="text-xl md:text-2xl mb-8 max-w-2xl">Your ultimate destination for authentic anime merchandise from Naruto, Dragon Ball, Hunter x Hunter and more!</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#shop" class="anime-btn px-8 py-3 rounded-full text-white font-bold">Shop Now</a>
+                    <a href="#categories" class="px-8 py-3 rounded-full border-2 border-white text-white font-bold hover:bg-white hover:text-purple-600 transition">Explore</a>
+                </div>
+            </div>
+        </div>
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1633613286848-e6f43bbafb8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Anime characters collage" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-100 to-transparent z-20"></div>
+    </section>
+
+    <!-- Featured Products -->
+    <section id="shop" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Featured Products</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-purple-600 to-pink-500 mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <!-- Product cards will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Shop by Category</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-purple-600 to-pink-500 mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <a href="#" class="category-card bg-gray-50 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
+                    <div class="h-40 bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
+                        <i class="fas fa-tshirt text-5xl text-purple-600"></i>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-lg">Clothing</h3>
+                        <p class="text-gray-600 text-sm">T-shirts, hoodies & more</p>
+                    </div>
+                </a>
+                
+                <a href="#" class="category-card bg-gray-50 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
+                    <div class="h-40 bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
+                        <i class="fas fa-figure text-5xl text-blue-600"></i>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-lg">Figures</h3>
+                        <p class="text-gray-600 text-sm">Action figures & statues</p>
+                    </div>
+                </a>
+                
+                <a href="#" class="category-card bg-gray-50 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
+                    <div class="h-40 bg-gradient-to-br from-yellow-100 to-orange-100 flex items-center justify-center">
+                        <i class="fas fa-image text-5xl text-yellow-600"></i>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-lg">Posters</h3>
+                        <p class="text-gray-600 text-sm">High quality prints</p>
+                    </div>
+                </a>
+                
+                <a href="#" class="category-card bg-gray-50 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
+                    <div class="h-40 bg-gradient-to-br from-green-100 to-teal-100 flex items-center justify-center">
+                        <i class="fas fa-gamepad text-5xl text-green-600"></i>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-lg">Toys</h3>
+                        <p class="text-gray-600 text-sm">Plushies & collectibles</p>
+                    </div>
+                </a>
+                
+                <a href="#" class="category-card bg-gray-50 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
+                    <div class="h-40 bg-gradient-to-br from-red-100 to-pink-100 flex items-center justify-center">
+                        <i class="fas fa-ring text-5xl text-red-600"></i>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-lg">Accessories</h3>
+                        <p class="text-gray-600 text-sm">Jewelry, bags & more</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Series Collection -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Shop by Series</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-purple-600 to-pink-500 mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="series-card relative rounded-xl overflow-hidden shadow-lg h-64 hover:shadow-xl transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1633613286991-611fe299c4be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Naruto Collection" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white">
+                        <h3 class="text-2xl font-bold mb-2">Naruto</h3>
+                        <p class="mb-4">Explore the Hidden Leaf Village</p>
+                        <a href="#" class="px-6 py-2 bg-white text-purple-600 rounded-full font-bold hover:bg-purple-600 hover:text-white transition">Shop Now</a>
+                    </div>
+                </div>
+                
+                <div class="series-card relative rounded-xl overflow-hidden shadow-lg h-64 hover:shadow-xl transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1545566238-6a541cfb2e8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Dragon Ball Collection" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white">
+                        <h3 class="text-2xl font-bold mb-2">Dragon Ball</h3>
+                        <p class="mb-4">Power up with Goku</p>
+                        <a href="#" class="px-6 py-2 bg-white text-orange-500 rounded-full font-bold hover:bg-orange-500 hover:text-white transition">Shop Now</a>
+                    </div>
+                </div>
+                
+                <div class="series-card relative rounded-xl overflow-hidden shadow-lg h-64 hover:shadow-xl transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1633613287219-5096a2444cb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Hunter x Hunter Collection" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white">
+                        <h3 class="text-2xl font-bold mb-2">Hunter x Hunter</h3>
+                        <p class="mb-4">Join Gon's adventure</p>
+                        <a href="#" class="px-6 py-2 bg-white text-green-500 rounded-full font-bold hover:bg-green-500 hover:text-white transition">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <div class="relative rounded-xl overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1633613287140-1828e48432a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="About Anime Haven" class="w-full h-auto">
+                        <div class="absolute -bottom-6 -right-6 bg-purple-600 text-white p-4 rounded-lg shadow-xl w-32 h-32 flex items-center justify-center">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold">5+</div>
+                                <div class="text-sm">Years Experience</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">About Anime Haven</h2>
+                    <p class="text-gray-600 mb-4">Founded in 2018 by passionate anime fans, Anime Haven has grown from a small online store to one of the most trusted sources for authentic anime merchandise in the region.</p>
+                    <p class="text-gray-600 mb-6">We specialize in officially licensed products from the most popular anime series, ensuring you get the highest quality items that truly represent your favorite characters and shows.</p>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="flex items-center">
+                            <div class="bg-purple-100 p-3 rounded-full mr-3">
+                                <i class="fas fa-check-circle text-purple-600"></i>
+                            </div>
+                            <span class="font-medium">Authentic Products</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-pink-100 p-3 rounded-full mr-3">
+                                <i class="fas fa-shipping-fast text-pink-600"></i>
+                            </div>
+                            <span class="font-medium">Fast Shipping</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-blue-100 p-3 rounded-full mr-3">
+                                <i class="fas fa-headset text-blue-600"></i>
+                            </div>
+                            <span class="font-medium">24/7 Support</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-green-100 p-3 rounded-full mr-3">
+                                <i class="fas fa-hand-holding-usd text-green-600"></i>
+                            </div>
+                            <span class="font-medium">Best Prices</span>
+                        </div>
+                    </div>
+                    <a href="#" class="anime-btn px-8 py-3 rounded-full text-white font-bold inline-block">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">What Our Customers Say</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-purple-600 to-pink-500 mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Customer" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Sarah K.</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"The Naruto figure I ordered arrived in perfect condition and looks even better in person! Fast shipping and excellent packaging."</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Michael T.</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    </div>
+                    <p class="text-gray-600">"Amazing collection of Dragon Ball merchandise. I've been collecting for years and this is by far the best store I've found for authentic items."</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Customer" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Jessica L.</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Customer service is outstanding! They helped me track down a rare Hunter x Hunter poster that was sold out everywhere else."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-16 bg-gradient-to-r from-purple-600 to-pink-500 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Join Our Otaku Community</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Subscribe to get exclusive offers, new product announcements, and anime news straight to your inbox.</p>
+            
+            <form class="max-w-md mx-auto flex">
+                <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-l-lg focus:outline-none text-gray-800">
+                <button type="submit" class="bg-yellow-400 text-gray-800 font-bold px-6 py-3 rounded-r-lg hover:bg-yellow-300 transition">Subscribe</button>
+            </form>
+            
+            <p class="text-sm mt-4 opacity-80">We respect your privacy. Unsubscribe at any time.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Contact Us</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-purple-600 to-pink-500 mx-auto"></div>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-bold mb-6">Get in Touch</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-gray-700 mb-2">Your Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-700 mb-2">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-gray-700 mb-2">Subject</label>
+                            <input type="text" id="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-700 mb-2">Message</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+                        </div>
+                        <button type="submit" class="anime-btn px-8 py-3 rounded-full text-white font-bold">Send Message</button>
+                    </form>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-bold mb-6">Our Info</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-map-marker-alt text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">Address</h4>
+                                <p class="text-gray-600">123 Otaku Street, Anime City, AC 12345</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-pink-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-phone-alt text-pink-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">Phone</h4>
+                                <p class="text-gray-600">+1 (234) 567-8900</p>
+                                <p class="text-gray-600">Mon-Fri: 9AM-6PM EST</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-envelope text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">Email</h4>
+                                <p class="text-gray-600">support@animehaven.com</p>
+                                <p class="text-gray-600">sales@animehaven.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="font-bold text-lg mb-4">Follow Us</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-gray-100 w-10 h-10 rounded-full flex items-center justify-center text-purple-600 hover:bg-purple-600 hover:text-white transition">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="bg-gray-100 w-10 h-10 rounded-full flex items-center justify-center text-pink-600 hover:bg-pink-600 hover:text-white transition">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="bg-gray-100 w-10 h-10 rounded-full flex items-center justify-center text-blue-400 hover:bg-blue-400 hover:text-white transition">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="bg-gray-100 w-10 h-10 rounded-full flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Anime</span>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-yellow-300">Haven</span>
+                    </h3>
+                    <p class="text-gray-400 mb-4">Your ultimate destination for authentic anime merchandise and collectibles.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Shop</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">All Products</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">New Arrivals</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Featured</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Discounts</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Gift Cards</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Customer Service</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">FAQs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Shipping Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Returns & Exchanges</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Track Order</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Cookie Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Licensing</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2023 Anime Haven. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <img src="https://via.placeholder.com/40x25?text=VISA" alt="Visa" class="h-6">
+                    <img src="https://via.placeholder.com/40x25?text=MC" alt="Mastercard" class="h-6">
+                    <img src="https://via.placeholder.com/40x25?text=PP" alt="PayPal" class="h-6">
+                    <img src="https://via.placeholder.com/40x25?text=AMEX" alt="American Express" class="h-6">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
+        <div class="h-full flex flex-col">
+            <div class="p-4 border-b flex justify-between items-center">
+                <h3 class="text-xl font-bold">Your Cart</h3>
+                <button id="close-cart" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div id="cart-items" class="flex-grow overflow-y-auto p-4">
+                <!-- Cart items will be inserted here by JavaScript -->
+                <div id="empty-cart-message" class="h-full flex flex-col items-center justify-center text-center p-8">
+                    <i class="fas fa-shopping-cart text-4xl text-gray-300 mb-4"></i>
+                    <h4 class="text-xl font-bold mb-2">Your cart is empty</h4>
+                    <p class="text-gray-500 mb-6">Looks like you haven't added anything to your cart yet</p>
+                    <a href="#shop" class="anime-btn px-6 py-2 rounded-full text-white font-bold">Continue Shopping</a>
+                </div>
+            </div>
+            
+            <div class="border-t p-4">
+                <div class="flex justify-between mb-2">
+                    <span class="font-medium">Subtotal</span>
+                    <span id="cart-subtotal" class="font-bold">$0.00</span>
+                </div>
+                <div class="flex justify-between mb-4">
+                    <span class="font-medium">Shipping</span>
+                    <span class="font-bold">Calculated at checkout</span>
+                </div>
+                <button id="checkout-btn" class="w-full anime-btn py-3 rounded-lg text-white font-bold mb-2">Proceed to Checkout</button>
+                <p class="text-xs text-gray-500 text-center">or <a href="#shop" class="text-purple-600 hover:underline">Continue Shopping</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Overlay for cart -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+    <!-- Product Quick View Modal -->
+    <div id="quick-view-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-screen overflow-y-auto">
+            <div class="p-4 border-b flex justify-between items-center">
+                <h3 class="text-xl font-bold">Product Details</h3>
+                <button id="close-quick-view" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="p-6">
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <div class="lg:w-1/2">
+                        <div id="quick-view-image" class="bg-gray-100 rounded-lg overflow-hidden mb-4">
+                            <!-- Product image will be inserted here -->
+                        </div>
+                        <div class="grid grid-cols-4 gap-2">
+                            <!-- Thumbnails will be inserted here -->
+                        </div>
+                    </div>
+                    
+                    <div class="lg:w-1/2">
+                        <h2 id="quick-view-title" class="text-2xl font-bold mb-2"></h2>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400 mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-600">(24 reviews)</span>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <span id="quick-view-price" class="text-3xl font-bold text-purple-600"></span>
+                            <span class="text-gray-500 line-through ml-2" id="quick-view-old-price"></span>
+                        </div>
+                        
+                        <p id="quick-view-description" class="text-gray-700 mb-6"></p>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold mb-2">Series:</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span id="quick-view-series" class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold mb-2">Type:</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span id="quick-view-type" class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center mb-6">
+                            <div class="mr-4">
+                                <label for="quantity" class="block font-bold mb-2">Quantity:</label>
+                                <div class="flex border rounded-lg overflow-hidden">
+                                    <button class="px-3 py-2 bg-gray-100 hover:bg-gray-200" id="decrease-qty">-</button>
+                                    <input type="number" id="quantity" value="1" min="1" class="w-16 text-center border-0 focus:ring-0">
+                                    <button class="px-3 py-2 bg-gray-100 hover:bg-gray-200" id="increase-qty">+</button>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block font-bold mb-2">Availability:</label>
+                                <span id="quick-view-stock" class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">In Stock</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-4">
+                            <button id="add-to-cart-quick" class="anime-btn px-8 py-3 rounded-full text-white font-bold flex-grow">Add to Cart</button>
+                            <button class="px-8 py-3 border-2 border-purple-600 text-purple-600 rounded-full font-bold hover:bg-purple-50 transition">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample product data
+        const products = [
+            {
+                id: 1,
+                title: "Naruto Uzumaki Figurine",
+                price: 49.99,
+                oldPrice: 59.99,
+                image: "https://images.unsplash.com/photo-1633613286848-e6f43bbafb8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                series: ["Naruto"],
+                type: "Figure",
+                description: "Highly detailed 8-inch Naruto Uzumaki figurine in his signature orange jumpsuit. Perfect for display on your desk or shelf.",
+                stock: 15,
+                thumbnails: [
+                    "https://images.unsplash.com/photo-1633613286848-e6f43bbafb8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    "https://images.unsplash.com/photo-1633613286848-e6f43bbafb8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    "https://images.unsplash.com/photo-1633613286848-e6f43bbafb8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                ]
+            },
+            {
+                id: 2,
+                title: "Dragon Ball Z Goku T-Shirt",
+                price: 24.99,
+                oldPrice: 29.99,
+                image: "https://images.unsplash.com/photo-1545566238-6a541cfb2e8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                series: ["Dragon Ball"],
+                type: "Clothing",
+                description: "Premium quality cotton t-shirt featuring Goku in his Super Saiyan form. Available in multiple sizes from S to XXL.",
+                stock: 42,
+                thumbnails: [
+                    "https://images.unsplash.com/photo-1545566238-6a541cfb2e8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    "https://images.unsplash.com/photo-1545566238-6a541cfb2e8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    "https://images.unsplash.com/photo-1545566238-6a541cfb2e8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                ]
+            },
+            {
+                id: 3,
+                title: "Hunter x Hunter Poster Set",
+                price: 19.99,
+                oldPrice: null,
+                image: "https://images.unsplash.com/photo-1633613287219-5096a2444cb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                series: ["Hunter x Hunter"],
+                type: "Poster",
+                description: "Set of 3 high-quality posters featuring Gon, Killua and Hisoka. Printed on premium matte paper with vibrant colors.",
+                stock: 28,
+                thumbnails: [
+                    "https://images.unsplash.com/photo-1633613287219-5096a2444cb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    "https://images.unsplash.com/photo-1633613287219-5096a2444cb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    "https://images.unsplash.com/photo-1633613287219-5096a2444cb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                ]
+            },
+            {
+                id: 4,
+                title: "Naruto Kunai Keychain",
+                price: 12.99,
+                oldPrice: null,
+                image: "https://images.unsplash.com/photo-1633613286848-e6f43bbafb8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                series: ["Naruto"],
+                type: "Accessory",
+                description: "Metal kunai keychain replica from Naruto. Perfect for fans who want to carry a piece of the Hidden Leaf Village with them.",
+                stock: 36,
+                thumbnails: [
+                    "https://images.unsplash.com/photo-1633613286848-e6f43bbafb8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    "https://images.unsplash.com/photo-1633613286848-e6f43bbafb8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    "https://images.unsplash.com/photo-1633613286848-e6f43bbafb8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                ]
+            },
+            {
+                id: 5,
+                title: "Dragon Ball Z Shenron Plush",
+                price: 34.99,
+                oldPrice: 39.99,
+                image: "https://images.unsplash.com/photo-1545566238-6a541cfb2e8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                series: ["Dragon Ball"],
+                type: "Toy",
+                description: "Soft and cuddly Shenron plush toy measuring 18 inches long. Perfect for Dragon Ball fans of all ages.",
+                stock: 8,
+                thumbnails: [
+                    "https://images.unsplash.com/photo-1545566238-6a541cfb2e8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    "https://images.unsplash.com/photo-1545566238-6a541cfb2e8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    "https://images.unsplash.com/photo-1545566238-6a541cfb2e8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                ]
+            },
+            {
+                id: 6,
+                title: "Hunter x Hunter Killua Hoodie",
+                price: 45.99,
+                oldPrice: 49.99,
+                image: "https://images.unsplash.com/photo-1633613287219-5096a2444cb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                series: ["Hunter x Hunter"],
+                type: "Clothing",
+                description: "Premium quality hoodie featuring Killua Zoldyck design. Warm and comfortable for everyday wear.",
+                stock: 14,
+                thumbnails: [
+                    "https://images.unsplash.com/photo-1633613287219-5096a2444cb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    "https://images.unsplash.com/photo-1633613287219-5096a2444cb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    "https://images.unsplash.com/photo-1633613287219-5096a2444cb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                ]
+            },
+            {
+                id: 7,
+                title: "Naruto Akatsuki Ring",
+                price: 29.99,
+                oldPrice: null,
+                image: "https://images.unsplash.com/photo-1633613286848-e6f43bbafb8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                series: ["Naruto"],
+                type: "Accessory",
+                description: "Stylish metal ring featuring the Akatsuki cloud symbol. Adjustable size fits most fingers.",
+                stock: 22,
+                thumbnails: [
+                    "https://images.unsplash.com/photo-1633613286848-e6f43bbafb8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    "https://images.unsplash.com/photo-1633613286848-e6f43bbafb8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    "https://images.unsplash.com/photo-1633613286848-e6f43bbafb8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                ]
+            },
+            {
+                id: 8,
+                title: "Dragon Ball Z Scouter",
+                price: 39.99,
+                oldPrice: 44.99,
+                image: "https://images.unsplash.com/photo-1545566238-6a541cfb2e8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                series: ["Dragon Ball"],
+                type: "Accessory",
+                description: "Replica of the Frieza Force scouter with LED display and sound effects. Perfect for cosplay or display.",
+                stock: 5,
+                thumbnails: [
+                    "https://images.unsplash.com/photo-1545566238-6a541cfb2e8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    "https://images.unsplash.com/photo-1545566238-6a541cfb2e8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    "https://images.unsplash.com/photo-1545566238-6a541cfb2e8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                ]
+            }
+        ];
+
+        // Cart functionality
+        let cart = [];
+        let currentProduct = null;
+        let currentQuantity = 1;
+
+        // DOM elements
+        const cartBtn = document.getElementById('cart-btn');
+        const closeCartBtn = document.getElementById('close-cart');
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const cartOverlay = document.getElementById('cart-overlay');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const cartCount = document.getElementById('cart-count');
+        const cartSubtotal = document.getElementById('cart-subtotal');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const productGrid = document.querySelector('.grid.grid-cols-1.sm\\:grid-cols-2.md\\:grid-cols-3.lg\\:grid-cols-4.gap-8');
+        const quickViewModal = document.getElementById('quick-view-modal');
+        const closeQuickViewBtn = document.getElementById('close-quick-view');
+        const quickViewImage = document.getElementById('quick-view-image');
+        const quickViewTitle = document.getElementById('quick-view-title');
+        const quickViewPrice = document.getElementById('quick-view-price');
+        const quickViewOldPrice = document.getElementById('quick-view-old-price');
+        const quickViewDescription = document.getElementById('quick-view-description');
+        const quickViewSeries = document.getElementById('quick-view-series');
+        const quickViewType = document.getElementById('quick-view-type');
+        const quickViewStock = document.getElementById('quick-view-stock');
+        const quantityInput = document.getElementById('quantity');
+        const increaseQtyBtn = document.getElementById('increase-qty');
+        const decreaseQtyBtn = document.getElementById('decrease-qty');
+        const addToCartQuickBtn = document.getElementById('add-to-cart-quick');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            setupEventListeners();
+        });
+
+        // Render products to the page
+        function renderProducts() {
+            productGrid.innerHTML = '';
+            
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300';
+                productCard.innerHTML = `
+                    <div class="relative">
+                        <img src="${product.image}" alt="${product.title}" class="w-full h-64 object-cover">
+                        ${product.oldPrice ? `<span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">SALE</span>` : ''}
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg">${product.title}</h3>
+                            <span class="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs">${product.series[0]}</span>
+                        </div>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400 mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-600 text-sm">(24)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-xl font-bold text-purple-600">$${product.price.toFixed(2)}</span>
+                                ${product.oldPrice ? `<span class="text-gray-500 line-through ml-2 text-sm">$${product.oldPrice.toFixed(2)}</span>` : ''}
+                            </div>
+                            <button class="add-to-cart-btn px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition" data-id="${product.id}">
+                                <i class="fas fa-shopping-cart mr-2"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                // Add click event for quick view
+                productCard.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('add-to-cart-btn')) {
+                        openQuickView(product.id);
+                    }
+                });
+                
+                productGrid.appendChild(productCard);
+            });
+            
+            // Add event listeners to all "Add to Cart" buttons
+            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const productId = parseInt(button.getAttribute('data-id'));
+                    addToCart(productId, 1);
+                });
+            });
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Cart toggle
+            cartBtn.addEventListener('click', toggleCart);
+            closeCartBtn.addEventListener('click', toggleCart);
+            cartOverlay.addEventListener('click', toggleCart);
+            
+            // Quick view modal
+            closeQuickViewBtn.addEventListener('click', closeQuickView);
+            
+            // Quantity controls
+            increaseQtyBtn.addEventListener('click', () => {
+                currentQuantity++;
+                quantityInput.value = currentQuantity;
+            });
+            
+            decreaseQtyBtn.addEventListener('click', () => {
+                if (currentQuantity > 1) {
+                    currentQuantity--;
+                    quantityInput.value = currentQuantity;
+                }
+            });
+            
+            quantityInput.addEventListener('change', (e) => {
+                const value = parseInt(e.target.value);
+                if (!isNaN(value) && value > 0) {
+                    currentQuantity = value;
+                } else {
+                    quantityInput.value = currentQuantity;
+                }
+            });
+            
+            // Add to cart from quick view
+            addToCartQuickBtn.addEventListener('click', () => {
+                if (currentProduct) {
+                    addToCart(currentProduct.id, currentQuantity);
+                    closeQuickView();
+                    toggleCart();
+                }
+            });
+            
+            // Checkout button
+            checkoutBtn.addEventListener('click', () => {
+                alert('Proceeding to checkout! In a real application, this would redirect to a checkout page.');
+            });
+            
+            // Mobile menu toggle
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Toggle cart visibility
+        function toggleCart() {
+            cartSidebar.classList.toggle('translate-x-full');
+            cartOverlay.classList.toggle('hidden');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        // Open quick view modal for a product
+        function openQuickView(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            currentProduct = product;
+            currentQuantity = 1;
+            
+            // Set product details
+            quickViewImage.innerHTML = `<img src="${product.image}" alt="${product.title}" class="w-full h-64 object-contain">`;
+            
+            // Clear thumbnails
+            const thumbnailsContainer = document.querySelector('#quick-view-modal .grid.grid-cols-4.gap-2');
+            thumbnailsContainer.innerHTML = '';
+            
+            // Add thumbnails
+            product.thumbnails.forEach((thumb, index) => {
+                const thumbnail = document.createElement('div');
+                thumbnail.className = 'cursor-pointer border rounded overflow-hidden';
+                thumbnail.innerHTML = `<img src="${thumb}" alt="Thumbnail ${index + 1}" class="w-full h-16 object-cover">`;
+                thumbnail.addEventListener('click', () => {
+                    quickViewImage.innerHTML = `<img src="${thumb}" alt="${product.title}" class="w-full h-64 object-contain">`;
+                });
+                thumbnailsContainer.appendChild(thumbnail);
+            });
+            
+            quickViewTitle.textContent = product.title;
+            quickViewPrice.textContent = `$${product.price.toFixed(2)}`;
+            
+            if (product.oldPrice) {
+                quickViewOldPrice.textContent = `$${product.oldPrice.toFixed(2)}`;
+                quickViewOldPrice.classList.remove('hidden');
+            } else {
+                quickViewOldPrice.classList.add('hidden');
+            }
+            
+            quickViewDescription.textContent = product.description;
+            quickViewSeries.textContent = product.series[0];
+            quickViewType.textContent = product.type;
+            
+            if (product.stock > 10) {
+                quickViewStock.textContent = 'In Stock';
+                quickViewStock.className = 'px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm';
+            } else if (product.stock > 0) {
+                quickViewStock.textContent = `Only ${product.stock} left!`;
+                quickViewStock.className = 'px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm';
+            } else {
+                quickViewStock.textContent = 'Out of Stock';
+                quickViewStock.className = 'px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm';
+            }
+            
+            quantityInput.value = currentQuantity;
+            
+            // Show modal
+            quickViewModal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        // Close quick view modal
+        function closeQuickView() {
+            quickViewModal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        // Add product to cart
+        function addToCart(productId, quantity) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cart.push({
+                    id: product.id,
+                    title: product.title,
+                    price: product.price,
+                    image: product.image,
+                    quantity: quantity
+                });
+            }
+            
+            updateCart();
+        }
+
+        // Remove product from cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        // Update quantity of a cart item
+        function updateCartItemQuantity(productId, newQuantity) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity = newQuantity;
+                updateCart();
+            }
+        }
+
+        // Update cart UI
+        function updateCart() {
+            // Update cart count
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Update cart items
+            if (cart.length === 0) {
+                emptyCartMessage.classList.remove('hidden');
+                cartItemsContainer.innerHTML = '';
+                cartItemsContainer.appendChild(emptyCartMessage);
+            } else {
+                emptyCartMessage.classList.add('hidden');
+                
+                let cartItemsHTML = '';
+                let subtotal = 0;
+                
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    subtotal += itemTotal;
+                    
+                    cartItemsHTML += `
+                        <div class="cart-item mb-4 pb-4
+</body>
+</html>
